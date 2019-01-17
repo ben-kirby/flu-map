@@ -1,12 +1,14 @@
 class Flu {
-  constructor() {
-    this.fluData = [];
+  static getData(days){
+    const url = `http://api.flutrack.org/?time=${days}`;
+    const options = { mode: 'cors' };
+    return fetch(url, options);
   }
 
-  getData(days){
-    return fetch(`http://api.flutrack.org/?time=${days}`).then(function(response){
-      return JSON.stringify(response.json());
-    })
-  }
+
+
+
+
 
 }
+export { Flu }

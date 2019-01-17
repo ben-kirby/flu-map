@@ -6,6 +6,7 @@ class Map {
   }
 
   static createMap(googleMaps, mapElement) {
+    //call createHEat here
     return new googleMaps.Map(mapElement, {
       center: {
         lat: 38.5,
@@ -14,6 +15,18 @@ class Map {
       zoom: 5
     });
   }
+
+  // static createHeatMap(fluData){
+  //   let pionts = [];
+  //   fluData.forEach(){
+  //     points.push(
+  //       new
+  //     )
+  //   }
+  // }
+
+
+
 }
 
 export { Map };

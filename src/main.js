@@ -5,14 +5,19 @@ import './styles.css';
 
 $(document).ready(function() {
   let mapElement = document.getElementById('map');
-  // let newData = new Flu();
-  // newData.getData(days)
-
   let map = null;
-  let loadPromise = Map.loadMap();
-  loadPromise.then(function(googleMaps) {
+
+  Map.loadMap().then(function(googleMaps) {
     map = Map.createMap(googleMaps, mapElement);
-  }).catch(function(error) {
+    console.log("map", map);
+    return Flu.getData(10);
+  },
+    function(error) {
     console.error(error);
+  }).then(function(fluPromise) {
+     return fluPromise.json();
+  }).then(function(fluData) {
+    console.log("flu", fluData[0]);
+    let marker =  new googleMaps.Marker({ position: {lat: 45, lng: -90}, map: map});
   });
 });
