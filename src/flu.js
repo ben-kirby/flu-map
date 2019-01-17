@@ -4,11 +4,5 @@ class Flu {
     const options = { mode: 'cors' };
     return fetch(url, options);
   }
-
-
-
-
-
-
 }
 export { Flu }

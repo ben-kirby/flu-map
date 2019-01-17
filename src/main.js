@@ -4,20 +4,19 @@ import $ from 'jquery';
 import './styles.css';
 
 $(document).ready(function() {
+  let allFluData = null;
   let mapElement = document.getElementById('map');
   let map = null;
+  let heatMap = null;
 
-  Map.loadMap().then(function(googleMaps) {
-    map = Map.createMap(googleMaps, mapElement);
-    console.log("map", map);
-    return Flu.getData(10);
-  },
-    function(error) {
-    console.error(error);
-  }).then(function(fluPromise) {
-     return fluPromise.json();
+  Flu.getData(1).then(function(fluResponse) {
+    return fluResponse.json();
   }).then(function(fluData) {
-    console.log("flu", fluData[0]);
-    let marker =  new googleMaps.Marker({ position: {lat: 45, lng: -90}, map: map});
+    allFluData = fluData;
+    return Map.loadMap();
+  }).then(function(googleMaps) {
+    map = Map.createMap(googleMaps, mapElement);
+    console.log("map", googleMaps);
+    heatMap = Map.createHeatMap(googleMaps, map, allFluData);
   });
 });
