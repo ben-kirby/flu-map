@@ -182,7 +182,7 @@ class Map {
     return map;
   }
 
-  static createHeatMap(googleMaps, map, fluData){
+  static createFlightMap(googleMaps, map, fluData){
     console.log("hm", googleMaps, map, fluData);
     let points = [];
     console.log("size", fluData.states.length);
