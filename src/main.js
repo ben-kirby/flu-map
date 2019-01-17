@@ -1,20 +1,18 @@
-const loadGoogleMapsApi = require('load-google-maps-api')
+import { Flu } from './flu';
+import { Map } from './map';
 import $ from 'jquery';
 import './styles.css';
 
 $(document).ready(function() {
   let mapElement = document.getElementById('map');
-  let map = null;
+  // let newData = new Flu();
+  // newData.getData(days)
 
-  loadGoogleMapsApi({ key: process.env.GOOGLE_KEY }).then(function (googleMaps) {
-    map = new googleMaps.Map(mapElement, {
-      center: {
-        lat: 40.7484405,
-        lng: -73.9944191
-      },
-      zoom: 12
-    })
-  }).catch(function (error) {
-    console.error(error)
-  })
-})
+  let map = null;
+  let loadPromise = Map.loadMap();
+  loadPromise.then(function(googleMaps) {
+    map = Map.createMap(googleMaps, mapElement);
+  }).catch(function(error) {
+    console.error(error);
+  });
+});
