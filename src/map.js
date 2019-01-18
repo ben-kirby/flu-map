@@ -182,29 +182,32 @@ class Map {
     return map;
   }
 
-  static createFlightMap(googleMaps, map, fluData){
-    console.log("hm", googleMaps, map, fluData);
+  static createFluMap(googleMaps, map, fluData){
     let points = [];
-    console.log("size", fluData.states.length);
-    fluData.states.forEach(function(each){
+    fluData.forEach(function(tweet){
+      let lat = tweet.latitude;
+      let lng = tweet.longitude;
+
+      points.push(new googleMaps.LatLng(lat, lng));
+    });
+
+    let heatMap = new googleMaps.visualization.HeatmapLayer({
+      data: points,
+      map: map,
+      radius: 30
+    });
+  };
+
+  static createFlightMap(googleMaps, map, flightData){
+    flightData.states.forEach(function(each){
       let lat = parseFloat(each[6]);
       let lng = parseFloat(each[5]);
       let marker = new googleMaps.Marker({
         position: { lat: lat, lng: lng },
         map: map
       });
-
-      // points.push(new googleMaps.LatLng(lat, lng))
     });
-
   };
-
-  // let heatMap = new googleMaps.visualization.HeatmapLayer({
-  //   data: points,
-  //   map: map,
-  //   radius: 10
-  // });
-
 }
 
 export { Map };

@@ -1,5 +1,5 @@
 class Flight {
-  static getData(days){
+  static getData(){
     const url = 'http://opensky-network.org/api/states/all'
     return fetch(url);
   }
